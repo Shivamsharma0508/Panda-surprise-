@@ -33,14 +33,19 @@ img{
 0%{transform:scale(0);}
 100%{transform:scale(1);}
 }
+
+@keyframes fall{
+0%{transform:translateY(-50px);}
+100%{transform:translateY(100vh);}
+}
 </style>
 </head>
 
 <body>
 
 <div id="app">
-<h1>Hey Megha 👀</h1>
-<button onclick="start()">Do you want to see?</button>
+<h1>Hey Megha ❤️<br>Shivam has a surprise for you… do you want to see it? 😌</h1>
+<button onclick="start()">Do you wanna see? 😏</button>
 </div>
 
 <script>
@@ -92,11 +97,11 @@ document.getElementById("app").innerHTML=
 function memory(){
 
 let photos=[
-"photo1.jpg",
-"photo2.jpg",
-"photo3.jpg",
-"photo4.jpg",
-"photo5.jpg"
+"pic1.jpg",
+"pic2.jpg",
+"pic3.jpg",
+"pic4.jpg",
+"pic5.jpg"
 ];
 
 let i=0;
@@ -119,8 +124,87 @@ cake();
 function cake(){
 document.getElementById("app").innerHTML=
 `<h2>Happy Birthday Panda 🎂</h2>
-<p>Tap the cake</p>
-<img onclick="confetti()" src="cake.png">`;
+<p>Tap the cake to cut it</p>
+
+<div class="cake" onclick="cutCake()">
+  <div class="top"></div>
+  <div class="candles">
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
+  </div>
+</div>
+
+<style>
+.cake{
+width:220px;
+height:140px;
+margin:30px auto;
+background:linear-gradient(45deg,#ff8acb,#ff5ea3);
+border-radius:20px;
+position:relative;
+box-shadow:0 15px 30px rgba(0,0,0,0.2);
+cursor:pointer;
+transition:0.3s;
+}
+
+.cake:hover{
+transform:scale(1.05);
+}
+
+.top{
+position:absolute;
+top:-30px;
+left:0;
+width:100%;
+height:40px;
+background:linear-gradient(45deg,#fff,#ffd1ec);
+border-radius:50%;
+}
+
+.candles{
+position:absolute;
+top:-65px;
+width:100%;
+display:flex;
+justify-content:center;
+gap:20px;
+}
+
+.candle{
+width:12px;
+height:35px;
+background:white;
+border-radius:5px;
+position:relative;
+}
+
+.flame{
+width:10px;
+height:18px;
+background:orange;
+border-radius:50%;
+position:absolute;
+top:-18px;
+left:1px;
+animation:flicker 0.2s infinite alternate;
+box-shadow:0 0 12px orange;
+}
+
+@keyframes flicker{
+from{transform:scale(1);}
+to{transform:scale(1.2);}
+}
+</style>`;
+}
+
+function cutCake(){
+navigator.vibrate([300,100,300,100,300]);
+
+document.querySelector(".cake").style.transform="rotateX(70deg) scale(0.8)";
+document.querySelector(".cake").style.opacity="0.4";
+
+setTimeout(confetti,1200);
 }
 
 function confetti(){
@@ -128,31 +212,116 @@ function confetti(){
 navigator.vibrate([500,200,500,200,500]);
 
 document.getElementById("app").innerHTML=
-`<h1>🎉 HAPPY BIRTHDAY MEGHA 🎉</h1>
-<div id="party"></div>`;
+`<div style="text-align:center;">
+<h1>🎉 HAPPY BIRTHDAY MEGHA 🎉</h1>
 
+<div class="champagne" onclick="pop()">
+🍾
+</div>
+
+</div>
+
+<div id="party"></div>
+
+<style>
+
+/* 3D confetti */
+#party{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+overflow:hidden;
+}
+
+.confetti{
+position:absolute;
+font-size:28px;
+animation:fall 3s linear infinite;
+transform:rotateX(60deg) rotateY(30deg);
+filter:drop-shadow(0 0 8px rgba(0,0,0,0.4));
+}
+
+/* falling animation */
+@keyframes fall{
+0%{
+transform:translateY(-50px) rotate(0deg);
+}
+100%{
+transform:translateY(110vh) rotate(360deg);
+}
+}
+
+/* 3D champagne */
+.champagne{
+font-size:60px;
+cursor:pointer;
+margin:20px auto;
+transition:0.3s;
+animation:bounce 1.5s infinite;
+}
+
+.champagne:hover{
+transform:scale(1.2) rotate(-10deg);
+}
+
+@keyframes bounce{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-12px);}
+}
+
+</style>`;
+
+
+/* confetti rain */
+for(let i=0;i<40;i++){
+let e=document.createElement("div");
+e.className="confetti";
+e.innerText=["🎉","🥳","🍾","🎊","✨"][Math.floor(Math.random()*5)];
+e.style.left=Math.random()*100+"%";
+e.style.animationDelay=Math.random()*3+"s";
+document.getElementById("party").appendChild(e);
+}
+
+}
+
+function pop(){
+
+navigator.vibrate([100,50,200,50,300]);
+
+/* explosion confetti */
 for(let i=0;i<25;i++){
 let e=document.createElement("div");
-e.innerText=["🎉","🥳","🍾","🎊"][Math.floor(Math.random()*4)];
+e.innerText="✨";
 e.style.position="fixed";
-e.style.left=Math.random()*100+"%";
-e.style.top="-50px";
+e.style.left="50%";
+e.style.top="50%";
 e.style.fontSize="30px";
-e.style.animation="fall 3s linear infinite";
+e.style.transform=`translate(-50%,-50%) rotate(${Math.random()*360}deg)`;
+e.style.transition="1s";
+
 document.body.appendChild(e);
+
+setTimeout(()=>{
+e.style.left=Math.random()*100+"%";
+e.style.top=Math.random()*100+"%";
+e.style.opacity="0";
+},50);
 }
 
-/* move to love section */
-setTimeout(loveSection, 4000);
-}
+/* go to love section after party */
+setTimeout(loveSection,3500);
+  }
 
 /* 💖 FINAL LOVE SLIDES */
 function loveSection(){
 
 let slides=[
-{t:"And remember… No matter how many people come in your life, you’re still stuck with me 😌❤️", img:"photo5.jpg"},
-{t:"See… I told you you’re the most beautiful person in my world ❤️", img:"photo6.jpg"},
-{t:"I love you bro ❤️", img:null}
+{t:"And remember… No matter how many people come in your life, you’re still stuck with me 😌❤️", img:"pic5.jpg"},
+{t:"See… I told you you’re the most beautiful person in my world ❤️", img:"pic6.jpg"},
+{t:"I love you bro ❤️<br><span style='font-size:16px;opacity:0.7;position:absolute;bottom:20px;right:20px;'>~ Shivam Sharma</span>", img:null}
 ];
 
 let i=0;

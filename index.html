@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Panda Surprise</title>
+
+<style>
+body{
+  background:pink;
+  font-family:sans-serif;
+  text-align:center;
+}
+
+button{
+  padding:12px 25px;
+  margin:10px;
+  border:none;
+  border-radius:10px;
+  font-size:18px;
+}
+
+#app{
+  margin-top:100px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+<h1>Hey Megha 👀</h1>
+<button onclick="start()">Do you want to see?</button>
+</div>
+
+<script>
+
+function start(){
+document.getElementById("app").innerHTML=
+`<h2>Are you sure? 😏</h2>
+<button onclick="yes()">YES</button>
+<button onclick="no()">NO</button>`;
+}
+
+function no(){
+document.getElementById("app").innerHTML=
+`<h2>How dare you say NO 😡</h2>
+<img src="babyboss.png" width="200"><br>
+<button onclick="yes()">Okay YES</button>`;
+}
+
+function yes(){
+document.getElementById("app").innerHTML=
+`<h2>Loading your surprise ❤️</h2>
+<h3>Only Panda could unlock this 💖</h3>
+<input id="pass" placeholder="Enter password">
+<br>
+<button onclick="check()">Unlock</button>`;
+}
+
+function check(){
+let p=document.getElementById("pass").value;
+if(p.toLowerCase().trim()==="ghutno mai dimak"){
+wish();
+}else{
+alert("Wrong 😜 Try again");
+}
+}
+
+function wish(){
+document.getElementById("app").innerHTML=
+`<h2>Make a wish 🌌</h2>
+<input placeholder="Type your wish">
+<br>
+<button onclick="cake()">Done</button>`;
+}
+
+function cake(){
+document.getElementById("app").innerHTML=
+`<h2>Happy Birthday Panda 🎂</h2>
+<p>Tap the cake</p>
+<img onclick="confetti()" src="cake.png" width="200">`;
+}
+
+function confetti(){
+navigator.vibrate(200);
+document.getElementById("app").innerHTML=
+`<h1>🎉 HAPPY BIRTHDAY MEGHA 🎉</h1>
+<p>More surprises coming soon...</p>`;
+}
+
+</script>
+</body>
+  </html>

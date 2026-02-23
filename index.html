@@ -18,7 +18,7 @@ body{
   min-height:100vh;
   flex-direction:column;
 }
-}
+
 button{
   padding:15px 25px;
   margin:12px;
@@ -40,6 +40,23 @@ img{
 0%{transform:scale(0);}
 100%{transform:scale(1);}
 }
+  .champagne{
+  font-size:70px;
+  cursor:pointer;
+  margin:20px auto;
+  animation:float 2s infinite ease-in-out;
+  display:inline-block;
+  transition:0.3s;
+}
+
+.champagne:hover{
+  transform:scale(1.2) rotate(-10deg);
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-12px);}
+  }
 
 @keyframes fall{
 0%{transform:translateY(-50px);}
@@ -93,12 +110,23 @@ alert("Wrong 😜 Try again");
 }
 }
 
+let userWish="";
+
 function wish(){
 document.getElementById("app").innerHTML=
-`<h2>Make a wish 🌌</h2>
-<input placeholder="Type your wish">
+`<h2>Close your eyes and make a wish 🌌</h2>
+<input id="wishInput" placeholder="Type your wish">
 <br>
-<button onclick="memory()">Done</button>`;
+<button onclick="saveWish()">Done</button>`;
+}
+
+function saveWish(){
+userWish=document.getElementById("wishInput").value;
+
+document.getElementById("app").innerHTML=
+`<h2>I don’t know what you wished for… but I promise I’ll be part of it ❤️</h2>
+<p>I’ll try my best to make it real one day for us TWIN 🫂</p>
+<button onclick="memory()">Continue</button>`;
 }
 
 function memory(){
@@ -323,7 +351,7 @@ navigator.vibrate([100,50,200,50,300]);
 for(let i=0;i<35;i++){
 
 let e=document.createElement("div");
-e.innerText=["✨","💫","🎉","🥳"][Math.floor(Math.random()*4)];
+e.innerText=["✨","🍾","🎉","🥳"][Math.floor(Math.random()*5)];
 
 e.style.position="fixed";
 e.style.left="50%";
@@ -339,6 +367,7 @@ e.style.transform="translate(-50%, -50%) scale(0.5)";
 e.style.transition="all 1.2s cubic-bezier(.17,.67,.83,.67)";
 
 document.body.appendChild(e);
+e.style.boxShadow="0 10px 20px rgba(0,0,0,0.3)";
 
 /* explosion */
 setTimeout(()=>{
@@ -357,7 +386,7 @@ e.remove();
 }
 
 /* move to love section */
-setTimeout(loveSection,3500);
+setTimeout(loveSection,4200);
 }
 /* 💖 FINAL LOVE SLIDES */
 function loveSection(){

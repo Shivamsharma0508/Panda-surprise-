@@ -321,7 +321,7 @@ function loveSection(){
 let slides=[
 {t:"And remember… No matter how many people come in your life, you’re still stuck with me 😌❤️", img:"pic5.jpg"},
 {t:"See… I told you you’re the most beautiful person in my world ❤️", img:"pic6.jpg"},
-{t:"I love you bro ❤️<br><span style='font-size:16px;opacity:0.7;position:absolute;bottom:20px;right:20px;'>~ Shivam Sharma</span>", img:null}
+{t:"I love you bro ❤️<br><br><span style='font-size:16px;opacity:0.7;'>~ Shivam Sharma</span>", img:null}
 ];
 
 let i=0;
@@ -333,7 +333,7 @@ document.getElementById("app").innerHTML=
 showSlide();
 
 function showSlide(){
-document.getElementById("loveText").innerText=slides[i].t;
+document.getElementById("loveText").innerHTML=slides[i].t;
 
 if(slides[i].img){
 document.getElementById("loveImg").src=slides[i].img;

@@ -11,6 +11,13 @@ body{
   font-family:sans-serif;
   text-align:center;
   padding:20px;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  flex-direction:column;
+}
 }
 button{
   padding:15px 25px;
@@ -97,7 +104,7 @@ document.getElementById("app").innerHTML=
 function memory(){
 
 let photos=[
-"pic1.jpg",
+"pic01.jpg",
 "pic2.jpg",
 "pic3.jpg",
 "pic4.jpg",
@@ -152,6 +159,12 @@ transition:0.3s;
 transform:scale(1.05);
 }
 
+.cake.cut{
+transform:rotateX(65deg) scale(0.85);
+opacity:0.3;
+transition:0.6s;
+}
+
 .top{
 position:absolute;
 top:-30px;
@@ -189,6 +202,7 @@ top:-18px;
 left:1px;
 animation:flicker 0.2s infinite alternate;
 box-shadow:0 0 12px orange;
+filter:blur(0.5px);
 }
 
 @keyframes flicker{
@@ -199,12 +213,26 @@ to{transform:scale(1.2);}
 }
 
 function cutCake(){
+
 navigator.vibrate([300,100,300,100,300]);
 
-document.querySelector(".cake").style.transform="rotateX(70deg) scale(0.8)";
-document.querySelector(".cake").style.opacity="0.4";
+let cake=document.querySelector(".cake");
 
+/* bounce + slice illusion */
+cake.classList.add("cut");
+cake.style.boxShadow="0 40px 60px rgba(0,0,0,0.4)";
+
+/* small shake */
+cake.style.animation="shake 0.5s";
+
+/* hide after cut */
+setTimeout(()=>{
+cake.style.opacity="0";
+},700);
+
+/* confetti after cut */
 setTimeout(confetti,1200);
+}
 }
 
 function confetti(){
@@ -291,36 +319,53 @@ function pop(){
 
 navigator.vibrate([100,50,200,50,300]);
 
-/* explosion confetti */
-for(let i=0;i<25;i++){
+/* 3D explosion confetti */
+for(let i=0;i<35;i++){
+
 let e=document.createElement("div");
-e.innerText="✨";
+e.innerText=["✨","💫","🎉","🥳"][Math.floor(Math.random()*4)];
+
 e.style.position="fixed";
 e.style.left="50%";
 e.style.top="50%";
-e.style.fontSize="30px";
-e.style.transform=`translate(-50%,-50%) rotate(${Math.random()*360}deg)`;
-e.style.transition="1s";
+e.style.fontSize="32px";
+e.style.pointerEvents="none";
+e.style.zIndex="9999";
+
+/* start from center */
+e.style.transform="translate(-50%, -50%) scale(0.5)";
+
+/* smooth 3D feel */
+e.style.transition="all 1.2s cubic-bezier(.17,.67,.83,.67)";
 
 document.body.appendChild(e);
 
+/* explosion */
 setTimeout(()=>{
 e.style.left=Math.random()*100+"%";
 e.style.top=Math.random()*100+"%";
 e.style.opacity="0";
-},50);
+e.style.transform=
+`translate(-50%, -50%) rotate(${Math.random()*720}deg) scale(1.5)`;
+},30);
+
+/* remove after animation */
+setTimeout(()=>{
+e.remove();
+},1400);
+
 }
 
-/* go to love section after party */
+/* move to love section */
 setTimeout(loveSection,3500);
-  }
-
+}
 /* 💖 FINAL LOVE SLIDES */
 function loveSection(){
 
 let slides=[
 {t:"And remember… No matter how many people come in your life, you’re still stuck with me 😌❤️", img:"pic5.jpg"},
 {t:"See… I told you you’re the most beautiful person in my world ❤️", img:"pic6.jpg"},
+{t:"Happy Birthday Megha 🥳🎉", img:"pic01.jpg"},
 {t:"I love you bro ❤️<br><br><span style='font-size:16px;opacity:0.7;'>~ Shivam Sharma</span>", img:null}
 ];
 

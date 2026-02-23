@@ -42,6 +42,67 @@ img{
 <button onclick="start()">Do you want to see?</button>
 </div>
 
+  function loveSection(){
+
+let slides=[
+{t:"And remember… No matter how many people come in your life, you’re still stuck with me 😌❤️", img:"photo5.jpg"},
+{t:"See… I told you you’re the most beautiful person in my world ❤️", img:"photo6.jpg"},
+{t:"I love you bro ❤️", img:null}
+];
+
+let i=0;
+
+document.getElementById("app").innerHTML=
+`<h2 id="loveText"></h2>
+<img id="loveImg" style="display:block;margin:auto;">
+`;
+
+showSlide();
+
+function showSlide(){
+document.getElementById("loveText").innerText=slides[i].t;
+
+if(slides[i].img){
+document.getElementById("loveImg").src=slides[i].img;
+document.getElementById("loveImg").style.display="block";
+}else{
+document.getElementById("loveImg").style.display="none";
+}
+
+setTimeout(nextSlide, 3500);
+}
+
+function nextSlide(){
+i++;
+if(i<slides.length){
+showSlide();
+}
+}
+}
+
+showLove();
+
+window.nextLove=function(){
+i++;
+if(i<messages.length){
+showLove();
+}else{
+finalLove();
+}
+}
+
+function showLove(){
+document.getElementById("loveText").innerText=messages[i].t;
+document.getElementById("loveImg").src=messages[i].img;
+}
+}
+
+function finalLove(){
+document.getElementById("app").innerHTML=
+`<h1 style="text-align:center;">I love you bro ❤️</h1>
+<img src="photo6.jpg" style="display:block;margin:auto;width:80%;max-width:300px;">`;
+}
+
 <script>
 
 function start(){
@@ -157,6 +218,7 @@ e.innerText=["🎉","🥳","🍾","🎊"][Math.floor(Math.random()*4)];
 e.style.left=Math.random()*100+"%";
 e.style.animationDelay=Math.random()*3+"s";
 document.getElementById("party").appendChild(e);
+  setTimeout(loveSection, 4000);
 }
 }
 

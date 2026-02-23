@@ -12,7 +12,6 @@ body{
   text-align:center;
   padding:20px;
 }
-
 button{
   padding:15px 25px;
   margin:12px;
@@ -22,15 +21,17 @@ button{
   width:80%;
   max-width:300px;
 }
-
 #app{
   margin-top:10vh;
 }
-
 img{
   width:80%;
   max-width:300px;
   height:auto;
+}
+@keyframes zoom{
+0%{transform:scale(0);}
+100%{transform:scale(1);}
 }
 </style>
 </head>
@@ -42,67 +43,6 @@ img{
 <button onclick="start()">Do you want to see?</button>
 </div>
 
-  function loveSection(){
-
-let slides=[
-{t:"And remember… No matter how many people come in your life, you’re still stuck with me 😌❤️", img:"photo5.jpg"},
-{t:"See… I told you you’re the most beautiful person in my world ❤️", img:"photo6.jpg"},
-{t:"I love you bro ❤️", img:null}
-];
-
-let i=0;
-
-document.getElementById("app").innerHTML=
-`<h2 id="loveText"></h2>
-<img id="loveImg" style="display:block;margin:auto;">
-`;
-
-showSlide();
-
-function showSlide(){
-document.getElementById("loveText").innerText=slides[i].t;
-
-if(slides[i].img){
-document.getElementById("loveImg").src=slides[i].img;
-document.getElementById("loveImg").style.display="block";
-}else{
-document.getElementById("loveImg").style.display="none";
-}
-
-setTimeout(nextSlide, 3500);
-}
-
-function nextSlide(){
-i++;
-if(i<slides.length){
-showSlide();
-}
-}
-}
-
-showLove();
-
-window.nextLove=function(){
-i++;
-if(i<messages.length){
-showLove();
-}else{
-finalLove();
-}
-}
-
-function showLove(){
-document.getElementById("loveText").innerText=messages[i].t;
-document.getElementById("loveImg").src=messages[i].img;
-}
-}
-
-function finalLove(){
-document.getElementById("app").innerHTML=
-`<h1 style="text-align:center;">I love you bro ❤️</h1>
-<img src="photo6.jpg" style="display:block;margin:auto;width:80%;max-width:300px;">`;
-}
-
 <script>
 
 function start(){
@@ -112,11 +52,15 @@ document.getElementById("app").innerHTML=
 <button onclick="no()">NO</button>`;
 }
 
+/* 🔥 CRAZY BABY BOSS ENTRY */
 function no(){
+navigator.vibrate([200,100,200]);
+
 document.getElementById("app").innerHTML=
-`<h2>How dare you say NO 😡</h2>
-<img src="babyboss.png" width="200"><br>
-<button onclick="yes()">Okay YES</button>`;
+`<h2 style="color:red;">How dare you say NO 😡</h2>
+<img src="BabyBose.jpg" style="animation:zoom 1s;">
+<br>
+<button onclick="yes()">Okay YES 😭</button>`;
 }
 
 function yes(){
@@ -159,8 +103,7 @@ let i=0;
 
 document.getElementById("app").innerHTML=
 `<h2>Some of my favourite memories with you ❤️</h2>
-<img id="slide" src="${photos[0]}">
-<br>
+<img id="slide" src="${photos[0]}"><br>
 <button onclick="next()">Next</button>`;
 
 window.next=function(){
@@ -177,51 +120,67 @@ function cake(){
 document.getElementById("app").innerHTML=
 `<h2>Happy Birthday Panda 🎂</h2>
 <p>Tap the cake</p>
-<img onclick="confetti()" src="cake.png" width="200">`;
+<img onclick="confetti()" src="cake.png">`;
 }
 
 function confetti(){
+
 navigator.vibrate([500,200,500,200,500]);
 
 document.getElementById("app").innerHTML=
 `<h1>🎉 HAPPY BIRTHDAY MEGHA 🎉</h1>
-<p>More surprises coming soon...</p>
-
-<div id="party"></div>
-
-<style>
-#party{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
-}
-
-.emoji{
-position:absolute;
-font-size:30px;
-animation:fall 3s linear infinite;
-}
-
-@keyframes fall{
-0%{transform:translateY(-50px);}
-100%{transform:translateY(100vh);}
-}
-</style>`;
+<div id="party"></div>`;
 
 for(let i=0;i<25;i++){
 let e=document.createElement("div");
-e.className="emoji";
 e.innerText=["🎉","🥳","🍾","🎊"][Math.floor(Math.random()*4)];
+e.style.position="fixed";
 e.style.left=Math.random()*100+"%";
-e.style.animationDelay=Math.random()*3+"s";
-document.getElementById("party").appendChild(e);
-  setTimeout(loveSection, 4000);
+e.style.top="-50px";
+e.style.fontSize="30px";
+e.style.animation="fall 3s linear infinite";
+document.body.appendChild(e);
+}
+
+/* move to love section */
+setTimeout(loveSection, 4000);
+}
+
+/* 💖 FINAL LOVE SLIDES */
+function loveSection(){
+
+let slides=[
+{t:"And remember… No matter how many people come in your life, you’re still stuck with me 😌❤️", img:"photo5.jpg"},
+{t:"See… I told you you’re the most beautiful person in my world ❤️", img:"photo6.jpg"},
+{t:"I love you bro ❤️", img:null}
+];
+
+let i=0;
+
+document.getElementById("app").innerHTML=
+`<h2 id="loveText"></h2>
+<img id="loveImg">`;
+
+showSlide();
+
+function showSlide(){
+document.getElementById("loveText").innerText=slides[i].t;
+
+if(slides[i].img){
+document.getElementById("loveImg").src=slides[i].img;
+}else{
+document.getElementById("loveImg").style.display="none";
+}
+
+setTimeout(()=>{
+i++;
+if(i<slides.length){
+showSlide();
+}
+},3500);
 }
 }
 
 </script>
 </body>
-  </html>
+</html>

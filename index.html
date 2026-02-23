@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Panda Surprise</title>
 
 <style>
@@ -9,18 +10,27 @@ body{
   background:pink;
   font-family:sans-serif;
   text-align:center;
+  padding:20px;
 }
 
 button{
-  padding:12px 25px;
-  margin:10px;
+  padding:15px 25px;
+  margin:12px;
   border:none;
-  border-radius:10px;
-  font-size:18px;
+  border-radius:12px;
+  font-size:20px;
+  width:80%;
+  max-width:300px;
 }
 
 #app{
-  margin-top:100px;
+  margin-top:10vh;
+}
+
+img{
+  width:80%;
+  max-width:300px;
+  height:auto;
 }
 </style>
 </head>
@@ -71,7 +81,35 @@ document.getElementById("app").innerHTML=
 `<h2>Make a wish 🌌</h2>
 <input placeholder="Type your wish">
 <br>
-<button onclick="cake()">Done</button>`;
+<button onclick="memory()">Done</button>`;
+}
+
+function memory(){
+
+let photos=[
+"photo1.jpg",
+"photo2.jpg",
+"photo3.jpg",
+"photo4.jpg",
+"photo5.jpg"
+];
+
+let i=0;
+
+document.getElementById("app").innerHTML=
+`<h2>Some of my favourite memories with you ❤️</h2>
+<img id="slide" src="${photos[0]}">
+<br>
+<button onclick="next()">Next</button>`;
+
+window.next=function(){
+i++;
+if(i<photos.length){
+document.getElementById("slide").src=photos[i];
+}else{
+cake();
+}
+}
 }
 
 function cake(){
@@ -82,10 +120,44 @@ document.getElementById("app").innerHTML=
 }
 
 function confetti(){
-navigator.vibrate(200);
+navigator.vibrate([500,200,500,200,500]);
+
 document.getElementById("app").innerHTML=
 `<h1>🎉 HAPPY BIRTHDAY MEGHA 🎉</h1>
-<p>More surprises coming soon...</p>`;
+<p>More surprises coming soon...</p>
+
+<div id="party"></div>
+
+<style>
+#party{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+}
+
+.emoji{
+position:absolute;
+font-size:30px;
+animation:fall 3s linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-50px);}
+100%{transform:translateY(100vh);}
+}
+</style>`;
+
+for(let i=0;i<25;i++){
+let e=document.createElement("div");
+e.className="emoji";
+e.innerText=["🎉","🥳","🍾","🎊"][Math.floor(Math.random()*4)];
+e.style.left=Math.random()*100+"%";
+e.style.animationDelay=Math.random()*3+"s";
+document.getElementById("party").appendChild(e);
+}
 }
 
 </script>

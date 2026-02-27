@@ -68,8 +68,8 @@ img{
 <body>
 
 <div id="app">
-<h1>Hey Megha ❤️<br>Shivam has a surprise for you… do you want to see it?</h1>
-<button onclick="start()">Do you wanna see? 😉</button>
+<h1>Hey Megha ❤️<br>Shivam has a surprise for you…</h1>
+<button onclick="start()">Yaa Ofc😉</button>
 </div>
 
 <script>
@@ -142,7 +142,7 @@ let photos=[
 let i=0;
 
 document.getElementById("app").innerHTML=
-`<h2>Some of my favourite memories with you ❤️</h2>
+<h2>These aren’t just pictures… they’re moments that became my favourite without asking ❤️</h2>
 <img id="slide" src="${photos[0]}"><br>
 <button onclick="next()">Next</button>`;
 
@@ -347,11 +347,13 @@ function pop(){
 
 navigator.vibrate([100,50,200,50,300]);
 
+let emojis=["✨","🍾","🎉","🥳"]; // safe array
+
 /* 3D explosion confetti */
 for(let i=0;i<35;i++){
 
 let e=document.createElement("div");
-e.innerText=["✨","🍾","🎉","🥳"][Math.floor(Math.random()*5)];
+e.innerText=emojis[Math.floor(Math.random()*emojis.length)];
 
 e.style.position="fixed";
 e.style.left="50%";
@@ -388,7 +390,6 @@ e.remove();
 /* move to love section */
 setTimeout(loveSection,4200);
 }
-/* 💖 FINAL LOVE SLIDES */
 function loveSection(){
 
 let slides=[

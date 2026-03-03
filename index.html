@@ -416,11 +416,10 @@ document.getElementById("loveImg").src=slides[i].img;
 document.getElementById("loveImg").style.display="none";
 }
 
+if(i < slides.length - 1){
 setTimeout(()=>{
 i++;
-if(i<slides.length){
 showSlide();
-}
 },3500);
 }
 }
